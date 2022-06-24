@@ -1,6 +1,6 @@
 $(document).ready(function () {
   let cellcontainer = $(".input-cell-container");
-
+  console.log("Json");
   for (i = 1; i < 100; i++) {
     let ans = "";
 
