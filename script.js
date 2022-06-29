@@ -162,16 +162,12 @@ function updateCell(property, value, defaultPossible){
     let colId = rowId_colId[1];
     if(cellData[selectedSheet][rowId]){
       if(cellData[selectedSheet][rowId][colId]){
-        // console.log("Haraam zaada1")
         cellData[selectedSheet][rowId][colId][property] = value;
       } else {
         cellData[selectedSheet][rowId][colId] = {...defaultProperties};
-        // console.log("Haraam zaada2")
-        // console.log(cellData[rowId][colId]);
         cellData[selectedSheet][rowId][colId][property] = value;
       }
     } else {
-      // console.log("Haraam zaada3")
       cellData[selectedSheet][rowId] = {};
       cellData[selectedSheet][rowId][colId] = {...defaultProperties};
 
