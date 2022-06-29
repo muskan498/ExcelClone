@@ -174,8 +174,7 @@ function updateCell(property, value, defaultPossible){
       // console.log("Haraam zaada3")
       cellData[selectedSheet][rowId] = {};
       cellData[selectedSheet][rowId][colId] = {...defaultProperties};
-      // console.log(defaultProperties);
-      // console.log(cellData[selectedSheet])
+
       cellData[selectedSheet][rowId][colId][property] = value;
     }
 
