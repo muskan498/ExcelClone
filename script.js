@@ -234,11 +234,4 @@ $(".icon-align-right").click(function(){
   }
 });
 
-$(".font-family-selector").change(function() {
-  updateCell("font-family", $(this).val());
-  $(".font-family-selector").css("font-family", $(this).val());
-});
 
-$(".font-size-selector").change(function() {
-  updateCell("font-size", $(this).val());
-});
