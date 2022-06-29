@@ -1,6 +1,26 @@
+let defaultProperties = {
+  "text": "",
+  "font-weight": "",
+  "font-style": "",
+  "text-decoration": "",
+  "text-align": "left",
+  "background-color": "white",
+  "color": "black",
+  "font-family": "Noto Sans",
+  "font-size": "14"
+}
+// console.log(defaultProperties);
+
+let cellData = {
+  "Sheet1" : {}
+}
+
+let selectedSheet = "Sheet1";
+let totalSheets = 1;
+
 $(document).ready(function () {
   let cellcontainer = $(".input-cell-container");
-  console.log("Json");
+
   for (i = 1; i < 100; i++) {
     let ans = "";
 
@@ -82,20 +102,42 @@ $(document).ready(function () {
               // console.log($(`#rowId-${rowId}-colId-${colId+1}`).attr);
             }
           }
-          $(this).addClass("selected");
+        }
+        else {
+            $(".input-cell.selected").removeClass("selected top-cell-selected bottom-cell-selected right-cell-selected left-cell-selected");
+        }  
+        bhoo
+        $(this).addClass("selected");
+        changeHeader(this); 
+    });
+
+    function changeHeader(ele) {
+      let [rowId,colId] = getRowCol(ele);
+      let cellInfo = defaultProperties;
+      if(cellData[selectedSheet][rowId] && cellData[selectedSheet][rowId][colId]) {
+          cellInfo = cellData[selectedSheet][rowId][colId];
       }
 
-      else{
-        $(".input-cell.selected").removeClass("selected top-cell-selected bottom-cell-selected right-cell-selected left-cell-selected");
-        $(this).addClass("selected");
-      }   
-    });
+      cellInfo["font-weight"] ? $(".icon-bold").addClass("selected") : $(".icon-bold").removeClass("selected");
+      cellInfo["font-style"] ? $(".icon-italic").addClass("selected") : $(".icon-italic").removeClass("selected");
+      cellInfo["text-decoration"] ? $(".icon-underline").addClass("selected") : $(".icon-underline").removeClass("selected");
+      
+      let alignment = cellInfo["text-align"];
+
+      $(".align-icon.selected").removeClass("selected");
+      $(".icon-align-" + alignment).addClass("selected");
+     
+  }
 
     $(".input-cell").dblclick(function(){
       $(".input-cell.selected").removeClass("selected");
       $(this).addClass("selected");
       $(this).attr("contenteditable", "true");
       $(this).focus();
+    });
+
+    $(".input-cell").blur(function(){
+      $(".input-cell.selected").attr("contenteditable", "false");
     });
 
     $(".input-cell-container").scroll(function(){
@@ -111,3 +153,92 @@ function getRowCol(ele) {
     let colId = parseInt(idArray[3]);
     return [rowId, colId];
 }
+
+function updateCell(property, value, defaultPossible){
+  $(".input-cell.selected").each(function(){
+    $(this).css(property,value);
+    let rowId_colId = getRowCol(this);
+    let rowId = rowId_colId[0];
+    let colId = rowId_colId[1];
+    if(cellData[selectedSheet][rowId]){
+      if(cellData[selectedSheet][rowId][colId]){
+        // console.log("Haraam zaada1")
+        cellData[selectedSheet][rowId][colId][property] = value;
+      } else {
+        cellData[selectedSheet][rowId][colId] = {...defaultProperties};
+        // console.log("Haraam zaada2")
+        // console.log(cellData[rowId][colId]);
+        cellData[selectedSheet][rowId][colId][property] = value;
+      }
+    } else {
+      // console.log("Haraam zaada3")
+      cellData[selectedSheet][rowId] = {};
+      cellData[selectedSheet][rowId][colId] = {...defaultProperties};
+      // console.log(defaultProperties);
+      // console.log(cellData[selectedSheet])
+      cellData[selectedSheet][rowId][colId][property] = value;
+    }
+
+    if(defaultPossible && (JSON.stringify(cellData[selectedSheet][rowId][colId]) === JSON.stringify(defaultProperties))) {
+      delete cellData[selectedSheet][rowId][colId];
+      if(Object.keys(cellData[selectedSheet][rowId]).length == 0){
+        delete cellData[selectedSheet][rowId];
+      }
+    }
+  });
+  console.log(cellData)
+}
+
+$(".icon-bold").click(function(){
+  if($(this).hasClass("selected")){
+    updateCell("font-weight", "", true);
+  }
+  else{
+    updateCell("font-weight", "bold", false);
+  }
+});
+
+$(".icon-underline").click(function(){
+  if($(this).hasClass("selected")){
+    updateCell("text-decoration", "", true);
+  }
+  else{
+    updateCell("text-decoration", "underline", false);
+  }
+});
+
+$(".icon-italic").click(function(){
+  if($(this).hasClass("selected")){
+    updateCell("font-style", "", true);
+  }
+  else{
+    updateCell("font-style", "italic", false);
+  }
+});
+
+$(".icon-align-left").click(function(){
+  if(!$(this).hasClass("selected")){
+    updateCell("text-align", "left", true);
+  }
+});
+
+$(".icon-align-center").click(function(){
+  if(!$(this).hasClass("selected")){
+    updateCell("text-align", "center", false);
+  }
+});
+
+$(".icon-align-right").click(function(){
+  if(!$(this).hasClass("selected")){
+    updateCell("text-align", "right", false);
+  }
+});
+
+$(".font-family-selector").change(function() {
+  updateCell("font-family", $(this).val());
+  $(".font-family-selector").css("font-family", $(this).val());
+});
+
+$(".font-size-selector").change(function() {
+  updateCell("font-size", $(this).val());
+});

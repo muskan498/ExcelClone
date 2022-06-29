@@ -184,8 +184,6 @@ body {
     min-width: 100px;
     min-height: 30px;
     outline-color: #188038;
-    display: flex;
-    align-items: center;
     padding-left: 0.4rem;
 }
 
