@@ -106,7 +106,7 @@ $(document).ready(function () {
         else {
             $(".input-cell.selected").removeClass("selected top-cell-selected bottom-cell-selected right-cell-selected left-cell-selected");
         }  
-        bhoo
+        
         $(this).addClass("selected");
         changeHeader(this); 
     });
