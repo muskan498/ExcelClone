@@ -229,4 +229,20 @@ $(".icon-align-right").click(function(){
   }
 });
 
+$(".color-fill-icon").click(function(){
+  $(".background-color-picker").click();
+});
+
+$(".color-fill-text").click(function(){
+  $(".text-color-picker").click();
+});
+
+$(".background-color-picker").change(function(){
+  updateCell("background-color", $(this).val())
+});
+
+$(".text-color-picker").change(function(){
+  updateCell("color", $(this).val())
+});
+
 
