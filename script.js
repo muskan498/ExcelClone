@@ -4,8 +4,8 @@ let defaultProperties = {
   "font-style": "",
   "text-decoration": "",
   "text-align": "left",
-  "background-color": "white",
-  "color": "black",
+  "background-color": "#ffffff",
+  "color": "#000000",
   "font-family": "Noto Sans",
   "font-size": "14"
 }
@@ -126,6 +126,11 @@ $(document).ready(function () {
 
       $(".align-icon.selected").removeClass("selected");
       $(".icon-align-" + alignment).addClass("selected");
+      $(".background-color-picker").val(cellInfo["background-color"]);
+      $(".text-color-picker").val(cellInfo["color"]);
+      $(".Font-family-selector").val(cellInfo["font-family"]);
+      $(".Font-family-selector").css("font-family", cellInfo["font-family"]);
+      $(".Font-size-selector").val(cellInfo["font-size"]);
      
   }
 
@@ -138,6 +143,7 @@ $(document).ready(function () {
 
     $(".input-cell").blur(function(){
       $(".input-cell.selected").attr("contenteditable", "false");
+      updateCell("text", $(this).text());
     });
 
     $(".input-cell-container").scroll(function(){
@@ -243,6 +249,15 @@ $(".background-color-picker").change(function(){
 
 $(".text-color-picker").change(function(){
   updateCell("color", $(this).val())
+});
+
+$(".Font-family-selector").change(function() {
+  updateCell("font-family", $(this).val());
+  $(".Font-family-selector").css("font-family", $(this).val());
+});
+
+$(".Font-size-selector").change(function() {
+  updateCell("font-size", $(this).val());
 });
 
 

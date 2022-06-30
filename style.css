@@ -200,6 +200,8 @@ body {
     min-height: 30px;
     outline-color: #188038;
     padding-left: 0.4rem;
+    font-size: 14px;
+    font-family: 'Noto Sans';
 }
 
 .input-cell.selected {
