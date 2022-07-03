@@ -243,9 +243,9 @@ body {
 .sheet-tab-container{
     border: 1px solid lightgrey;
     width: 100%;
+    display: flex;
 }
 .sheet-tab{
-    border-bottom: 4px solid #188038;
     padding-right: 10px;
     padding-left: 10px;
     display: flex; 
@@ -256,8 +256,19 @@ body {
     border-right: 1px solid lightgrey;
 }
 
+.sheet-tab.selected{
+    border-bottom: 4px solid #188038;
+    color: black;
+}
+
 .sheet-tab:hover{
+    cursor: pointer;
+    background-color: lightgrey;
+}
+
+.sheet-tab.selected:hover {
     cursor: default;
+    background-color: #fff;
 }
  
  .input-cell.top-cell-selected.selected{
