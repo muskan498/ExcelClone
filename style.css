@@ -6,7 +6,8 @@ body {
 *{box-sizing: border-box;}
 
 .container {
-    height: 100vh;    
+    height: 100vh; 
+    position: relative;   
 }
     
 .title-bar { 
@@ -287,4 +288,68 @@ body {
 
 .input-cell.left-cell-selected{
     border-left: none;
+}
+
+.sheet-options-modal {
+    position: absolute;
+    bottom: 4vh;
+    background-color: #fff;
+    height: 60px;
+    width: 70px;
+    box-shadow: 0 0 3px 1px lightgray;
+}
+
+.sheet-rename,.sheet-delete {
+    height: 30px;
+    font-weight: 500;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sheet-delete:hover, .sheet-rename:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+.sheet-rename-modal {
+    position: absolute;
+    height: 180px;
+    width: 300px;
+    top: calc(100vh / 2 - 90px);
+    left: calc(100vw / 2 - 150px);
+    background-color: white;
+    text-align: center;
+    box-shadow: 0 0 3px 1px lightgray;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.modal-title {
+    font-size: 20px;
+}
+
+.new-sheet-name {
+    height: 26px;
+    font-size: 18px;
+    outline-color: #107c41;
+}
+
+.submit-button {
+    cursor: pointer;
+    background-color: #107c41;
+    color: white;
+    padding: 8px;
+}
+
+.cancel-button {
+    cursor: pointer;
+    background-color: lightgray;
+    padding: 8px;
 }
